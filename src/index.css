@@ -1,12 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100;200;300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
+
+@font-face {
+    font-family: "Kalpurush";
+    src: url("/KALPURUSH.TTF") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
 
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Anek Bangla', sans-serif;
+    font-family: 'Kalpurush', sans-serif;
     line-height: 1.4;
     color: #111827;
     background: #f8fafc;
