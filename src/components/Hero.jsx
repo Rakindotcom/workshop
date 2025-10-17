@@ -1,47 +1,95 @@
-import { Calendar, Sparkles } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { WORKSHOP_INFO } from '../constants/workshop';
 
 const Hero = () => {
   return (
-    <section className="relative py-20 px-4 bg-gray-200">
-      <div className="max-w-6xl mx-auto text-center">
-        <div className="mb-12">
-          <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 rounded-full text-sm font-medium mb-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            <Sparkles className="w-5 h-5 mr-2 animate-spin" />
-            <span className="font-anek font-semibold">এক্সক্লুসিভ অফলাইন সেশন</span>
-          </div>
+    <section className="event-hero py-8 px-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-6 items-center">
+          {/* Left Content */}
+          <div>
+            {/* Date Badge */}
+            <div className="date-badge inline-block mb-4">
+              <div className="text-2xl font-bold">22</div>
+              <div className="text-base">OCT 2025</div>
+            </div>
 
-          <div className="relative">
-            <h1 className="font-anek text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent animate-pulse">
-                Prophetic Productivity:
-              </span>
+            {/* Event Badge */}
+            <div className="event-badge mb-3">
+              <span className="font-anek">এক্সক্লুসিভ অফলাইন ওয়ার্কশপ</span>
+            </div>
+
+            {/* Main Title */}
+            <h1 className="section-title font-anek text-4xl md:text-5xl mb-3">
+              PROPHETIC PRODUCTIVITY
               <br />
-              <span className="text-blue-900 drop-shadow-lg">সময়, কাজ ও জীবনের ভারসাম্য</span>
+              <span className="sky-blue-accent text-3xl md:text-4xl">সময়, কাজ ও জীবনের ভারসাম্য</span>
             </h1>
 
-            <div className="w-32 h-1 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto rounded-full mb-8"></div>
+            {/* Description */}
+            <p className="gray-text font-anek text-lg mb-4 leading-relaxed">
+              ইসলামের চিরন্তন নীতিমালা ও আধুনিক প্রোডাক্টিভিটির নিখুঁত সমন্বয়ে গড়ুন ভারসাম্যপূর্ণ জীবন।
+              ৪ ঘন্টার এই ওয়ার্কশপে শিখুন কীভাবে সময়, কাজ ও জীবনের মধ্যে আনবেন নিখুঁত ভারসাম্য।
+            </p>
+
+            {/* Event Info */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+              <div className="text-center">
+                <Calendar className="w-6 h-6 mx-auto mb-1 sky-blue-accent" />
+                <div className="font-anek text-base font-bold">{WORKSHOP_INFO.date}</div>
+              </div>
+              <div className="text-center">
+                <div className="w-6 h-6 mx-auto mb-1g rounded text-blue-800 text-base flex items-center justify-center font-bold">৫টা-৯টা</div>
+                <div className="font-anek text-base font-bold">৪ ঘন্টা</div>
+              </div>
+              <div className="text-center">
+                <div className="w-6 h-6 mx-auto mb-1 rounded text-blue-800 text-lg flex items-center justify-center font-bold">৯০০</div>
+                <div className="font-anek text-base font-bold">টাকা মাত্র</div>
+              </div>
+              <div className="text-center">
+                <div className="w-6 h-6 mx-auto mb-1 sky-blue-bg rounded text-white text-base flex items-center justify-center font-bold">✓</div>
+                <div className="font-anek text-base font-bold">খাবার সহ</div>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <a href="#registration" className="event-cta inline-block font-anek px-8 py-3">
+              রেজিস্টার করুন
+            </a>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 mb-8 shadow-2xl border border-blue-200 transform hover:scale-105 transition-all duration-300">
-            <p className="font-anek text-2xl md:text-3xl font-bold text-blue-800 mb-3">
-              {WORKSHOP_INFO.coach}
-            </p>
-            <p className="font-anek text-lg text-blue-600 font-medium">
-              আয়োজন: {WORKSHOP_INFO.organizer}
-            </p>
+          {/* Right Content - Coach Image */}
+          <div className="text-center">
+            {/* Professional Portrait with Blue Gradient Background */}
+            <div className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 rounded-lg overflow-hidden shadow-xl">
+              <div className="relative w-full h-80 flex items-end justify-center">
+                <img
+                  src="/jahidhasanmilu.jpg"
+                  alt="Jahid Hasan Milu"
+                  className="w-full h-full object-cover object-top"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="w-full h-full bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 hidden items-center justify-center text-white text-4xl font-bold">
+                  JHM
+                </div>
+
+                {/* Gradient Overlay for Professional Look */}
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 via-transparent to-transparent"></div>
+              </div>
+
+              {/* Coach Info Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-900/90 to-transparent p-4 text-white">
+                <h3 className="font-anek text-lg font-bold mb-1">{WORKSHOP_INFO.coach}</h3>
+                <p className="font-anek text-blue-100 text-xs mb-2">{WORKSHOP_INFO.organizer}</p>
+                <div className="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-anek font-bold inline-block">
+                  প্রোডাক্টিভিটি কোচ
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className="max-w-5xl mx-auto bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-10 mb-12 border border-blue-300 hover:shadow-3xl transition-all duration-500 transform hover:scale-105">
-          <p className="font-anek text-xl md:text-2xl text-gray-800 leading-relaxed">
-            ব্যস্ততার জীবনে শান্তি ও বরকত ফিরিয়ে আনুন। জানুন কীভাবে ইসলামের চিরন্তন নীতিমালা ও আধুনিক প্রোডাক্টিভিটি একত্রে আপনার জীবনকে গড়ে তুলতে পারে ভারসাম্যপূর্ণ ও ফলপ্রসূভাবে।
-          </p>
-        </div>
-
-        <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-900 text-white rounded-full font-bold text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 hover:-translate-y-1">
-          <Calendar className="w-6 h-6 mr-3 animate-pulse" />
-          <span className="font-anek">{WORKSHOP_INFO.date}</span>
         </div>
       </div>
     </section>

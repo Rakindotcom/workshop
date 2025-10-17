@@ -4,7 +4,6 @@ import EventDetails from './EventDetails';
 import ProblemsSection from './ProblemsSection';
 import SolutionSection from './SolutionSection';
 import LearningOutcomes from './LearningOutcomes';
-import CoachSection from './CoachSection';
 import RegistrationForm from './RegistrationForm';
 
 const Workshop = () => {
@@ -38,13 +37,12 @@ const Workshop = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-200 font-anek">
+    <div className="min-h-screen bg-gray-50 font-anek">
       <Hero />
       <EventDetails />
       <ProblemsSection />
       <SolutionSection />
       <LearningOutcomes />
-      <CoachSection />
       <RegistrationForm />
     </div>
   );

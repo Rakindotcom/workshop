@@ -10,19 +10,37 @@ const LearningOutcomes = () => {
   ];
 
   return (
-    <section className="py-16 px-4 bg-gray-200">
+    <section className="event-section">
       <div className="max-w-6xl mx-auto">
-        <h2 className="font-anek text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-          এই সেশনে যা শিখবেন
-        </h2>
+        <div className="text-center mb-8">
+          <h2 className="section-title font-anek mb-4">
+            এই ওয়ার্কশপে যা শিখবেন
+          </h2>
+          <p className="font-anek gray-text text-lg">৪ ঘন্টায় জীবন পরিবর্তনের ৫টি মূল কৌশল</p>
+        </div>
 
-        <div className="space-y-4">
+        <div className="card-grid">
           {learnings.map((learning, index) => (
-            <div key={index} className="flex items-start space-x-4 p-6 bg-white border border-blue-300 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
-              <CheckCircle className="text-blue-700 w-6 h-6 mt-1 flex-shrink-0" />
-              <p className="font-anek text-lg text-gray-800">{learning}</p>
+            <div key={index} className="event-card">
+              <div className="flex items-start space-x-4">
+                <div className="w-10 h-10 sky-blue-bg text-white rounded flex items-center justify-center font-bold flex-shrink-0">
+                  {index + 1}
+                </div>
+                <div>
+                  <CheckCircle className="sky-blue-accent w-6 h-6 mb-3" />
+                  <p className="font-anek text-gray-800 leading-relaxed font-medium">{learning}</p>
+                </div>
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-8">
+          <div className="event-card inline-block light-sky-blue-bg border-2 border-sky-300">
+            <p className="font-anek sky-blue-accent font-bold">
+              বোনাস: ব্যক্তিগত অ্যাকশন প্ল্যান টেমপ্লেট
+            </p>
+          </div>
         </div>
       </div>
     </section>

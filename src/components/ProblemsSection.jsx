@@ -1,39 +1,30 @@
 import { PROBLEMS } from '../constants/workshop';
 
 const ProblemsSection = () => {
-
   return (
-    <section className="relative py-20 px-4 bg-gray-200">
+    <section className="event-section">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="font-anek text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            আপনি কি এই বাস্তবতায় বাস করছেন?
+        <div className="text-center mb-8">
+          <h2 className="section-title font-anek mb-4">
+            আপনি কি এই সমস্যায় ভুগছেন?
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto rounded-full mb-8"></div>
-
-          <div className="max-w-5xl mx-auto space-y-6">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-blue-200">
-              <p className="font-anek text-xl md:text-2xl text-gray-800 font-medium leading-relaxed">
-                প্রতিদিন আপনি ব্যস্ত, কিন্তু দিনের শেষে মনে হয়— "আজও আসলে কিছুই এগোয়নি।"
-              </p>
-            </div>
-
-            <p className="font-anek text-lg text-blue-700 font-semibold">
-              চলুন দেখি, আপনি কি নিচের কোনো সমস্যার মধ্যে আছেন?
+          <div className="light-sky-blue-bg border-l-4 border-sky-700 rounded p-6 max-w-4xl mx-auto">
+            <p className="font-anek text-lg sky-blue-accent font-medium">
+              "প্রতিদিন ব্যস্ত, কিন্তু দিনের শেষে মনে হয়— আজও কিছুই এগোয়নি।"
             </p>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="card-grid">
           {PROBLEMS.map((problem, index) => (
-            <div key={index} className="group bg-white/90 backdrop-blur-sm border border-blue-300 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-1">
-              <div className="flex items-start space-x-6">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0 group-hover:animate-pulse">
+            <div key={index} className="event-card">
+              <div className="flex items-start space-x-4">
+                <div className="w-10 h-10 sky-blue-bg text-white rounded flex items-center justify-center font-bold flex-shrink-0">
                   {index + 1}
                 </div>
                 <div>
-                  <h3 className="font-anek font-bold text-gray-900 mb-4 text-xl leading-tight">{problem.title}</h3>
-                  <p className="font-anek text-gray-600 leading-relaxed">{problem.description}</p>
+                  <h3 className="font-anek font-bold text-gray-900 mb-3 text-lg">{problem.title}</h3>
+                  <p className="font-anek gray-text leading-relaxed">{problem.description}</p>
                 </div>
               </div>
             </div>

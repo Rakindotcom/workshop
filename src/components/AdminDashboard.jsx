@@ -110,7 +110,7 @@ const AdminDashboard = () => {
             <div className="flex items-center">
               <Users className="w-8 h-8 text-blue-600" />
               <div className="ml-4">
-                <p className="font-anek text-sm font-medium text-gray-600">মোট রেজিস্ট্রেশন</p>
+                <p className="font-anek text-base font-medium text-gray-600">মোট রেজিস্ট্রেশন</p>
                 <p className="font-anek text-2xl font-bold text-gray-900">{stats.total}</p>
               </div>
             </div>
@@ -120,7 +120,7 @@ const AdminDashboard = () => {
             <div className="flex items-center">
               <CheckCircle className="w-8 h-8 text-green-600" />
               <div className="ml-4">
-                <p className="font-anek text-sm font-medium text-gray-600">নিশ্চিত</p>
+                <p className="font-anek text-base font-medium text-gray-600">নিশ্চিত</p>
                 <p className="font-anek text-2xl font-bold text-gray-900">{stats.confirmed}</p>
               </div>
             </div>
@@ -130,7 +130,7 @@ const AdminDashboard = () => {
             <div className="flex items-center">
               <Clock className="w-8 h-8 text-yellow-600" />
               <div className="ml-4">
-                <p className="font-anek text-sm font-medium text-gray-600">অপেক্ষমাণ</p>
+                <p className="font-anek text-base font-medium text-gray-600">অপেক্ষমাণ</p>
                 <p className="font-anek text-2xl font-bold text-gray-900">{stats.pending}</p>
               </div>
             </div>
@@ -198,14 +198,14 @@ const AdminDashboard = () => {
                           {registration.fullName}
                         </div>
                         {registration.email && (
-                          <div className="font-anek text-sm text-gray-500 flex items-center mt-1">
+                          <div className="font-anek text-base text-gray-500 flex items-center mt-1">
                             <Mail className="w-3 h-3 mr-1" />
                             {registration.email}
                           </div>
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="font-anek text-sm text-gray-900 flex items-center">
+                        <div className="font-anek text-base text-gray-900 flex items-center">
                           <Phone className="w-3 h-3 mr-1" />
                           {registration.whatsapp}
                         </div>
@@ -214,7 +214,7 @@ const AdminDashboard = () => {
                         {getStatusBadge(registration.status)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="font-anek text-sm text-gray-900 flex items-center">
+                        <div className="font-anek text-base text-gray-900 flex items-center">
                           <Calendar className="w-3 h-3 mr-1" />
                           {formatDate(registration.registrationDate)}
                         </div>
