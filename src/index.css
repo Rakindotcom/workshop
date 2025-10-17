@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
 @font-face {
@@ -37,7 +38,7 @@ body {
     padding: 1rem;
     border-radius: 0.5rem;
     transition: all 0.3s ease;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #000000;
     background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -59,7 +60,7 @@ body {
 }
 
 .event-cta {
-    background: #0369a1;
+    background: #3ab9fd;
     color: white;
     padding: 1rem 2rem;
     border-radius: 0.5rem;
@@ -82,12 +83,11 @@ body {
 }
 
 .date-badge {
-    background: #0369a1;
-    color: white;
+    background: #38B6FF;
+    color: black;
     padding: 1rem;
     border-radius: 0.5rem;
     text-align: center;
-    font-weight: bold;
     min-width: 80px;
 }
 
@@ -97,7 +97,7 @@ body {
 }
 
 .sky-blue-accent {
-    color: #0369a1;
+    color: #1c85c2;
 }
 
 .gray-text {
@@ -130,9 +130,9 @@ body {
     background: #e0f2fe;
 }
 
-/* Blue Themed Registration Form Styles */
+/* Sky Blue Themed Registration Form Styles */
 .cool-form {
-    background: linear-gradient(135deg, #1e40af 0%, #3730a3 50%, #1e3a8a 100%);
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%);
     position: relative;
     overflow: hidden;
 }
@@ -164,13 +164,13 @@ body {
 
 .cool-input:focus {
     background: rgba(255, 255, 255, 1);
-    border-color: #3b82f6;
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    border-color: #0284c7;
+    box-shadow: 0 0 20px rgba(2, 132, 199, 0.3);
     transform: translateY(-2px);
 }
 
 .cool-button {
-    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    background: linear-gradient(135deg, #0284c7 0%, #075985 100%);
     border: none;
     color: white;
     font-weight: 700;
@@ -198,7 +198,7 @@ body {
 
 .cool-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 10px 30px rgba(2, 132, 199, 0.4);
 }
 
 .floating-element {
@@ -223,10 +223,14 @@ body {
 
 @keyframes pulse-glow {
     from {
-        box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        box-shadow: 0 0 20px rgba(2, 132, 199, 0.4);
     }
 
     to {
-        box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
+        box-shadow: 0 0 30px rgba(2, 132, 199, 0.8);
     }
+}
+
+.poppins{
+    font-family: "Poppins", sans-serif;
 }

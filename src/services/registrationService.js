@@ -1,4 +1,4 @@
-import { collection, addDoc, serverTimestamp, query, where, getDocs } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 const COLLECTION_NAME = "workshop_registrations";
@@ -72,5 +72,23 @@ export const getAllRegistrations = async () => {
   } catch (error) {
     console.error("Error getting registrations: ", error);
     throw error;
+  }
+};
+
+export const updateRegistrationStatus = async (registrationId, newStatus) => {
+  try {
+    const docRef = doc(db, COLLECTION_NAME, registrationId);
+    await updateDoc(docRef, {
+      status: newStatus,
+      lastUpdated: serverTimestamp()
+    });
+    
+    return {
+      success: true,
+      message: 'স্ট্যাটাস আপডেট হয়েছে!'
+    };
+  } catch (error) {
+    console.error("Error updating registration status: ", error);
+    throw new Error('স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে।');
   }
 };

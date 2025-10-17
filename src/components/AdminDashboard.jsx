@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Users, Calendar, Phone, Mail, CheckCircle, Clock, RefreshCw } from 'lucide-react';
-import { getAllRegistrations } from '../services/registrationService';
+import { Users, Calendar, Phone, Mail, CheckCircle, Clock, RefreshCw, Download, Edit3, X, LogOut } from 'lucide-react';
+import { getAllRegistrations, updateRegistrationStatus } from '../services/registrationService';
 
 const AdminDashboard = () => {
   const [registrations, setRegistrations] = useState([]);
@@ -9,8 +9,11 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState({
     total: 0,
     confirmed: 0,
-    pending: 0
+    pending: 0,
+    cancelled: 0
   });
+  const [editingStatus, setEditingStatus] = useState(null);
+  const [updatingStatus, setUpdatingStatus] = useState(false);
 
   const loadRegistrations = async () => {
     try {
@@ -32,8 +35,9 @@ const AdminDashboard = () => {
       const total = data.length;
       const confirmed = data.filter(reg => reg.status === 'confirmed').length;
       const pending = data.filter(reg => reg.status === 'pending').length;
+      const cancelled = data.filter(reg => reg.status === 'cancelled').length;
       
-      setStats({ total, confirmed, pending });
+      setStats({ total, confirmed, pending, cancelled });
       
     } catch (err) {
       console.error('Error loading registrations:', err);
@@ -62,21 +66,110 @@ const AdminDashboard = () => {
     }
   };
 
-  const getStatusBadge = (status) => {
+  const handleStatusUpdate = async (registrationId, newStatus) => {
+    try {
+      setUpdatingStatus(true);
+      await updateRegistrationStatus(registrationId, newStatus);
+      
+      // Update local state
+      setRegistrations(prev => 
+        prev.map(reg => 
+          reg.id === registrationId 
+            ? { ...reg, status: newStatus }
+            : reg
+        )
+      );
+      
+      setEditingStatus(null);
+      
+      // Recalculate stats
+      const updatedRegs = registrations.map(reg => 
+        reg.id === registrationId ? { ...reg, status: newStatus } : reg
+      );
+      const total = updatedRegs.length;
+      const confirmed = updatedRegs.filter(reg => reg.status === 'confirmed').length;
+      const pending = updatedRegs.filter(reg => reg.status === 'pending').length;
+      const cancelled = updatedRegs.filter(reg => reg.status === 'cancelled').length;
+      setStats({ total, confirmed, pending, cancelled });
+      
+    } catch (error) {
+      setError('স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে।');
+    } finally {
+      setUpdatingStatus(false);
+    }
+  };
+
+  const exportToCSV = () => {
+    const headers = ['নাম', 'হোয়াটসঅ্যাপ', 'পেমেন্ট সোর্স', 'স্ট্যাটাস', 'পেমেন্ট নিশ্চিত', 'রেজিস্ট্রেশনের সময়'];
+    const csvContent = [
+      headers.join(','),
+      ...registrations.map(reg => [
+        `"${reg.fullName}"`,
+        `"${reg.whatsapp}"`,
+        `"${reg.email || 'N/A'}"`,
+        `"${reg.status}"`,
+        `"${reg.paymentConfirmed ? 'হ্যাঁ' : 'না'}"`,
+        `"${formatDate(reg.registrationDate)}"`
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `workshop-registrations-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const getStatusBadge = (status, registrationId) => {
     const statusConfig = {
       pending: { color: 'bg-yellow-100 text-yellow-800', icon: Clock, text: 'অপেক্ষমাণ' },
       confirmed: { color: 'bg-green-100 text-green-800', icon: CheckCircle, text: 'নিশ্চিত' },
-      cancelled: { color: 'bg-red-100 text-red-800', icon: Clock, text: 'বাতিল' }
+      cancelled: { color: 'bg-red-100 text-red-800', icon: X, text: 'বাতিল' }
     };
 
     const config = statusConfig[status] || statusConfig.pending;
     const Icon = config.icon;
 
+    if (editingStatus === registrationId) {
+      return (
+        <div className="flex items-center space-x-2">
+          <select
+            value={status}
+            onChange={(e) => handleStatusUpdate(registrationId, e.target.value)}
+            disabled={updatingStatus}
+            className="text-xs border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          >
+            <option value="pending">অপেক্ষমাণ</option>
+            <option value="confirmed">নিশ্চিত</option>
+            <option value="cancelled">বাতিল</option>
+          </select>
+          <button
+            onClick={() => setEditingStatus(null)}
+            className="text-gray-400 hover:text-gray-600"
+          >
+            <X className="w-3 h-3" />
+          </button>
+        </div>
+      );
+    }
+
     return (
-      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.color}`}>
-        <Icon className="w-3 h-3 mr-1" />
-        {config.text}
-      </span>
+      <div className="flex items-center space-x-2">
+        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.color}`}>
+          <Icon className="w-3 h-3 mr-1" />
+          {config.text}
+        </span>
+        <button
+          onClick={() => setEditingStatus(registrationId)}
+          className="text-gray-400 hover:text-sky-600"
+        >
+          <Edit3 className="w-3 h-3" />
+        </button>
+      </div>
     );
   };
 
@@ -84,7 +177,7 @@ const AdminDashboard = () => {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="text-center">
-          <RefreshCw className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
+          <RefreshCw className="w-8 h-8 animate-spin text-sky-600 mx-auto mb-4" />
           <p className="font-anek text-gray-600">রেজিস্ট্রেশন তথ্য লোড হচ্ছে...</p>
         </div>
       </div>
@@ -95,20 +188,32 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="font-anek text-3xl font-bold text-gray-900 mb-2">
-            Workshop Registration Dashboard
-          </h1>
-          <p className="font-anek text-gray-600">
-            Prophetic Productivity Workshop - ২২ অক্টোবর ২০২৫
-          </p>
+        <div className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="font-anek text-3xl font-bold text-gray-900 mb-2">
+              Workshop Registration Dashboard
+            </h1>
+            <p className="font-anek text-gray-600">
+              Prophetic Productivity Workshop - ২২ অক্টোবর ২০২৫
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              localStorage.removeItem('adminAuthenticated');
+              window.location.reload();
+            }}
+            className="font-anek inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-300"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            লগআউট
+          </button>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
-              <Users className="w-8 h-8 text-blue-600" />
+              <Users className="w-8 h-8 text-sky-600" />
               <div className="ml-4">
                 <p className="font-anek text-base font-medium text-gray-600">মোট রেজিস্ট্রেশন</p>
                 <p className="font-anek text-2xl font-bold text-gray-900">{stats.total}</p>
@@ -135,16 +240,36 @@ const AdminDashboard = () => {
               </div>
             </div>
           </div>
+
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="flex items-center">
+              <X className="w-8 h-8 text-red-600" />
+              <div className="ml-4">
+                <p className="font-anek text-base font-medium text-gray-600">বাতিল</p>
+                <p className="font-anek text-2xl font-bold text-gray-900">{stats.cancelled}</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Refresh Button */}
-        <div className="mb-6">
+        {/* Action Buttons */}
+        <div className="mb-6 flex flex-wrap gap-4">
           <button
             onClick={loadRegistrations}
-            className="font-anek inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300"
+            disabled={loading}
+            className="font-anek inline-flex items-center px-4 py-2 bg-sky-600 hover:bg-sky-700 disabled:bg-sky-400 text-white font-medium rounded-lg transition-colors duration-300"
           >
-            <RefreshCw className="w-4 h-4 mr-2" />
+            <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             রিফ্রেশ করুন
+          </button>
+          
+          <button
+            onClick={exportToCSV}
+            disabled={registrations.length === 0}
+            className="font-anek inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-medium rounded-lg transition-colors duration-300"
+          >
+            <Download className="w-4 h-4 mr-2" />
+            CSV এক্সপোর্ট করুন
           </button>
         </div>
 
@@ -211,7 +336,7 @@ const AdminDashboard = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {getStatusBadge(registration.status)}
+                        {getStatusBadge(registration.status, registration.id)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="font-anek text-base text-gray-900 flex items-center">

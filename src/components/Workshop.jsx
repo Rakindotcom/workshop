@@ -4,6 +4,7 @@ import EventDetails from './EventDetails';
 import ProblemsSection from './ProblemsSection';
 import SolutionSection from './SolutionSection';
 import LearningOutcomes from './LearningOutcomes';
+import CoachIntroduction from './CoachIntroduction';
 import RegistrationForm from './RegistrationForm';
 
 const Workshop = () => {
@@ -43,6 +44,7 @@ const Workshop = () => {
       <ProblemsSection />
       <SolutionSection />
       <LearningOutcomes />
+      <CoachIntroduction />
       <RegistrationForm />
     </div>
   );
