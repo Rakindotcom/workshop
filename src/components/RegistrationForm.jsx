@@ -288,32 +288,7 @@ const RegistrationForm = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Cool Registration Layout */}
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Event Info Sidebar */}
-            <div className="space-y-4">
-              <div className="glass-card rounded-lg p-4">
-                <h3 className="text-3xl text-white mb-3 text-center">ইভেন্ট তথ্য</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2">
-                    <Star className="w-4 h-4 text-blue-300" />
-                    <span className="text-white text-xl">৯০০ টাকা মাত্র</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Clock className="w-4 h-4 text-blue-300" />
-                    <span className="text-white text-xl">৪ ঘন্টা</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Users className="w-4 h-4 text-blue-300" />
-                    <span className="font-anek text-white text-xl">খাবার + ওয়ার্কশপ + গিফট</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="glass-card rounded-lg p-4">
+              <div className="glass-card rounded-lg p-4 mt-4">
                 <h3 className="mb-3 text-white text-3xl text-center">যোগাযোগের জন্য</h3>
                 <div className="flex justify-center mb-3">
                   <a
@@ -333,6 +308,11 @@ const RegistrationForm = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Cool Registration Layout */}
+  
+            
 
             {/* Registration Form */}
             <div className="lg:col-span-2 glass-card rounded-xl overflow-hidden">
@@ -474,7 +454,6 @@ const RegistrationForm = () => {
                 </form>
               </div>
             </div>
-          </div>
         </div>
       </section>
     </>

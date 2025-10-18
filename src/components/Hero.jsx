@@ -27,7 +27,7 @@ const Hero = () => {
 
             {/* Description */}
             <div className="fade-in-up delay-300 bg-gradient-to-r from-gray-100 to-sky-50 p-6 rounded-xl border-l-4 border-sky-400 shadow-sm hover-lift">
-              <p className="font-anek text-3xl text-gray-700 leading-relaxed">
+              <p className="font-anek text-2xl lg:text-3xl text-gray-700 leading-relaxed">
                 আপনার জীবনকে মহানবীর ﷺ মতো <span className="text-sky-600 font-semibold">পারপাসফুল</span>,
                 <span className="text-sky-600 font-semibold"> প্রোডাক্টিভ</span> ও
                 <span className="text-sky-600 font-semibold"> ইমপ্যাক্টফুল</span> বানাতে আজই ওয়ার্কশপে যোগ দিন
