@@ -1,16 +1,19 @@
 const CoachIntroduction = () => {
     return (
         <section className="py-16 px-4 bg-gradient-to-br from-slate-50 to-blue-50">
-            <div className="max-w-7xl mx-auto">
-                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <h1 className="text-5xl text-center mb-3 font-bold text-sky-600 fade-in-up">
+                কোচ পরিচিতি
+            </h1>
+            <div className="max-w-7xl mx-auto rounded-3xl fade-in-up delay-200">
+                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden hover-lift">
                     <div className="grid lg:grid-cols-2 gap-0">
                         {/* Image Section */}
-                        <div className="relative">
+                        <div className="relative fade-in-left delay-300">
                             <div className="aspect-[4/3] lg:aspect-auto lg:h-full">
                                 <img
                                     src="/jahidhasanmilu.jpg"
                                     alt="জাহিদ হাসান মিলু"
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-cover object-top"
                                     onError={(e) => {
                                         e.target.style.display = 'none';
                                         e.target.nextSibling.style.display = 'flex';
@@ -20,12 +23,10 @@ const CoachIntroduction = () => {
                                     জাহিদ হাসান মিলু
                                 </div>
                             </div>
-                            {/* Decorative overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                         </div>
 
                         {/* Content Section */}
-                        <div className="p-8 lg:p-12 flex flex-col justify-center">
+                        <div className="px-0 py-8 lg:px-0 lg:py-12 flex flex-col justify-center">
                             <div className="space-y-6">
                                 {/* Header */}
                                 <div className="text-center">
@@ -35,7 +36,7 @@ const CoachIntroduction = () => {
                                 </div>
 
                                 {/* Description */}
-                                <div className="space-y-4 text-gray-700 leading-relaxed text-center lg:text-left">
+                                <div className="space-y-4 lg:px-4 text-gray-700 leading-relaxed text-center lg:text-justify">
                                     <p className="font-anek text-[19px]">
                                         জাহিদ হাসান মিলু একজন আত্ম-উন্নয়নমূলক লেখক ও প্রোফেটিক প্রোডাক্টিভিটি কোচ। ধর্মীয় প্র্যাক্টিসের মাধ্যমে কীভাবে মানুষের ব্যক্তিগত, সামাজিক ও পেশাদার জীবন সুন্দর ও সমৃদ্ধ হয় – সেই মিশনে দীর্ঘদিন ধরে কাজ করে যাচ্ছেন তিনি।
                                         পেশাদার জীবনে তিনি ডিভাইন কনসালটেন্সির প্রতিষ্ঠাতা ও প্রধান নির্বাহী।
@@ -59,23 +60,21 @@ const CoachIntroduction = () => {
                                 </div>
 
                                 {/* Achievements Section */}
-                                <div className="pt-8">
-
-                                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 poppins">
-                                        <div className="text-center p-6 bg-gradient-to-br from-sky-400 to-blue-500 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
-                                            <div className="text-3xl lg:text-4xl font-bold mb-2">250K+</div>
-                                            <div className="font-anek text-sm lg:text-base font-medium">Social Media Followers</div>
+                                <div className="pt-8 mx-2 fade-in-up delay-500">
+                                    <div className="grid grid-cols-3 gap-2 sm:gap-4 poppins">
+                                        <div className="text-center p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-sky-400 to-blue-500 rounded-xl lg:rounded-2xl text-white shadow-lg smooth-bounce scale-in delay-100">
+                                            <div className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-1 sm:mb-2">250K+</div>
+                                            <div className="font-anek text-xs sm:text-sm lg:text-base font-medium">Social Media Followers</div>
                                         </div>
 
-
-                                        <div className="text-center p-6 bg-gradient-to-br from-sky-400 to-blue-500 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
-                                            <div className="text-3xl lg:text-4xl font-bold mb-2">3</div>
-                                            <div className="font-anek text-sm lg:text-base font-medium">Published Books</div>
+                                        <div className="text-center p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-sky-400 to-blue-500 rounded-xl lg:rounded-2xl text-white shadow-lg smooth-bounce scale-in delay-200">
+                                            <div className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-1 sm:mb-2">3</div>
+                                            <div className="font-anek text-xs sm:text-sm lg:text-base font-medium">Published Books</div>
                                         </div>
 
-                                        <div className="text-center p-6 bg-gradient-to-br from-sky-400 to-blue-500 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
-                                            <div className="text-3xl lg:text-4xl font-bold mb-2">1,000+</div>
-                                            <div className="font-anek text-sm lg:text-base font-medium">Educational Contents</div>
+                                        <div className="text-center p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-sky-400 to-blue-500 rounded-xl lg:rounded-2xl text-white shadow-lg smooth-bounce scale-in delay-300">
+                                            <div className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-1 sm:mb-2">1,000+</div>
+                                            <div className="font-anek text-xs sm:text-sm lg:text-base font-medium">Educational Contents</div>
                                         </div>
                                     </div>
                                 </div>

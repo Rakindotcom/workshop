@@ -1,92 +1,63 @@
-// Simple authentication service
-// In production, use Firebase Auth or other secure authentication
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../config/firebase";
 
-const ADMIN_USERS = [
-  {
-    username: 'admin',
-    password: 'workshop2025', // In production, use hashed passwords
-    role: 'admin'
-  },
-  {
-    username: 'jahid',
-    password: 'divine2025',
-    role: 'admin'
-  }
-];
-
-export const authenticateAdmin = async (username, password) => {
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  const user = ADMIN_USERS.find(
-    u => u.username === username && u.password === password
-  );
-  
-  if (user) {
-    const token = btoa(JSON.stringify({ 
-      username: user.username, 
-      role: user.role, 
-      timestamp: Date.now() 
-    }));
-    
-    localStorage.setItem('adminToken', token);
-    localStorage.setItem('adminAuthenticated', 'true');
+export const authenticateAdmin = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
     
     return {
       success: true,
       user: {
-        username: user.username,
-        role: user.role
-      },
-      token
+        uid: user.uid,
+        email: user.email,
+        role: 'admin'
+      }
     };
-  }
-  
-  throw new Error('ভুল ইউজারনেম বা পাসওয়ার্ড');
-};
-
-export const logout = () => {
-  localStorage.removeItem('adminToken');
-  localStorage.removeItem('adminAuthenticated');
-};
-
-export const isAuthenticated = () => {
-  const token = localStorage.getItem('adminToken');
-  const authenticated = localStorage.getItem('adminAuthenticated');
-  
-  if (!token || authenticated !== 'true') {
-    return false;
-  }
-  
-  try {
-    const decoded = JSON.parse(atob(token));
-    // Check if token is less than 24 hours old
-    const isValid = (Date.now() - decoded.timestamp) < (24 * 60 * 60 * 1000);
-    
-    if (!isValid) {
-      logout();
-      return false;
-    }
-    
-    return true;
   } catch (error) {
-    logout();
-    return false;
+    console.error('Authentication error:', error);
+    
+    // Handle specific Firebase Auth errors
+    switch (error.code) {
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+      case 'auth/invalid-credential':
+        throw new Error('ভুল ইমেইল বা পাসওয়ার্ড');
+      case 'auth/too-many-requests':
+        throw new Error('অনেকবার ভুল চেষ্টা। কিছুক্ষণ পর আবার চেষ্টা করুন');
+      case 'auth/network-request-failed':
+        throw new Error('ইন্টারনেট সংযোগ চেক করুন');
+      default:
+        throw new Error(error.message || 'লগইন করতে সমস্যা হয়েছে');
+    }
+  }
+};
+
+export const logout = async () => {
+  try {
+    await signOut(auth);
+    return { success: true };
+  } catch (error) {
+    console.error('Logout error:', error);
+    throw new Error('লগআউট করতে সমস্যা হয়েছে');
   }
 };
 
 export const getCurrentUser = () => {
-  const token = localStorage.getItem('adminToken');
-  
-  if (!token) return null;
-  
-  try {
-    const decoded = JSON.parse(atob(token));
-    return {
-      username: decoded.username,
-      role: decoded.role
-    };
-  } catch (error) {
-    return null;
-  }
+  return auth.currentUser;
+};
+
+export const isAuthenticated = () => {
+  return !!auth.currentUser;
+};
+
+// Listen to authentication state changes
+export const onAuthStateChange = (callback) => {
+  return onAuthStateChanged(auth, (user) => {
+    if (user) {
+      callback({ authenticated: true, user });
+    } else {
+      callback({ authenticated: false, user: null });
+    }
+  });
 };

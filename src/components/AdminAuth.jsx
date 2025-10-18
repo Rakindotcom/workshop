@@ -1,40 +1,31 @@
 import { useState } from 'react';
 import { Lock, Eye, EyeOff } from 'lucide-react';
+import { authenticateAdmin } from '../services/authService';
 
 const AdminAuth = ({ onAuthenticated }) => {
   const [credentials, setCredentials] = useState({
-    username: '',
+    email: '',
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Simple authentication - in production, use proper authentication
-  const ADMIN_CREDENTIALS = {
-    username: 'admin',
-    password: 'workshop2025'
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    if (
-      credentials.username === ADMIN_CREDENTIALS.username &&
-      credentials.password === ADMIN_CREDENTIALS.password
-    ) {
-      localStorage.setItem('adminAuthenticated', 'true');
-      onAuthenticated(true);
-    } else {
-      setError('ভুল ইউজারনেম বা পাসওয়ার্ড');
+    try {
+      const result = await authenticateAdmin(credentials.email, credentials.password);
+      if (result.success) {
+        onAuthenticated(true);
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const handleInputChange = (e) => {
@@ -74,15 +65,15 @@ const AdminAuth = ({ onAuthenticated }) => {
 
               <div>
                 <label className="font-anek block text-gray-700 font-semibold mb-2">
-                  ইউজারনেম
+                  ইমেইল
                 </label>
                 <input
-                  type="text"
-                  name="username"
-                  value={credentials.username}
+                  type="email"
+                  name="email"
+                  value={credentials.email}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-300"
-                  placeholder="আপনার ইউজারনেম লিখুন"
+                  placeholder="আপনার ইমেইল লিখুন"
                   required
                   disabled={isLoading}
                 />
@@ -133,11 +124,10 @@ const AdminAuth = ({ onAuthenticated }) => {
             {/* Demo Credentials */}
             <div className="mt-6 p-4 bg-gray-50 rounded-lg">
               <p className="font-anek text-gray-600 text-sm text-center mb-2">
-                ডেমো ক্রেডেনশিয়াল:
+                এডমিন অ্যাক্সেসের জন্য অনুমোদিত ইমেইল ব্যবহার করুন
               </p>
-              <div className="font-anek text-xs text-gray-500 text-center space-y-1">
-                <p>ইউজারনেম: <span className="font-mono bg-gray-200 px-1 rounded">admin</span></p>
-                <p>পাসওয়ার্ড: <span className="font-mono bg-gray-200 px-1 rounded">workshop2025</span></p>
+              <div className="font-anek text-xs text-gray-500 text-center">
+                <p>Firebase Authentication দিয়ে সুরক্ষিত</p>
               </div>
             </div>
           </div>
