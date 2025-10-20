@@ -2,7 +2,7 @@ export const WORKSHOP_INFO = {
   title: 'Prophetic Productivity: সময়, কাজ ও জীবনের ভারসাম্য',
   coach: 'জাহিদ হাসান মিলু',
   organizer: 'ডিভাইন কনসাল্টেন্সি',
-  date: '২২ অক্টোবর, ২০২৫',
+  date: '২৯ অক্টোবর, ২০২৫',
   time: 'বিকাল ৫টা – রাত ৯টা',
   venue: 'হোটেল আশরাফি, রাজারবাগ',
   venueMapUrl: 'https://maps.app.goo.gl/HfZu8MfrQkMoDrHy7',

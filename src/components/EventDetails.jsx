@@ -16,8 +16,8 @@ const EventDetails = () => {
   });
 
   useEffect(() => {
-    // Set event date - October 22, 2025 at 4:30 PM Bangladesh time
-    const eventDate = new Date(2025, 9, 22, 16, 30, 0).getTime(); // Month is 0-indexed, so 9 = October
+    // Set event date - October 29, 2025 at 4:30 PM Bangladesh time
+    const eventDate = new Date(2025, 9, 29, 16, 30, 0).getTime(); // Month is 0-indexed, so 9 = October
 
     const updateCountdown = () => {
       const now = new Date().getTime();

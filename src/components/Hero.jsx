@@ -11,7 +11,7 @@ const Hero = () => {
             <div className="fade-in-up delay-100 inline-flex items-center bg-[#38B6FF] text-black px-6 py-3 rounded-full shadow-lg smooth-bounce">
               <div className="flex items-center space-x-3">
                 <div className="bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
-                  <span className="font-anek text-2xl">২২ অক্টোবর ২০২৫</span>
+                  <span className="font-anek text-2xl">২৯ অক্টোবর ২০২৫</span>
                 </div>
                 <div className="h-4 w-px bg-white/30"></div>
                 <span className="font-anek text-2xl font-medium">এক্সক্লুসিভ অফলাইন ওয়ার্কশপ</span>
